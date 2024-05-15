@@ -28,16 +28,17 @@ dir_path = Path(__file__).parent
 dir_name = problem.title
 zip_name = problem.title+'.zip'
 
-for id, prime in enumerate(primes(200), start=1):
+for id, prime in enumerate(primes(1000), start=1):
     x = prime
     y = fib(x)
 
-    if y > oj.LONG_LONG_SIZE:
+    if y > oj.SIZE_T_INT64:
+        # long long 을 사용해서 풀 수 있는 범위에서만 출제
         break
 
     tc = oj.TestCase()
-    tc.input.from_args(prime)
-    tc.output.from_args(fib(prime))
+    tc.input.from_args(x)
+    tc.output.from_args(y)
 
     problem.add_testcase(tc)
 
