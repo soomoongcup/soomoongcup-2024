@@ -25,9 +25,4 @@ def fib(n: int) -> int:
         return 0
     if n == 1:
         return 1
-    mat = [
-        [1,1],
-        [1,0],
-    ]
-    mat = matpow(mat, n-1)
-    return mat[0][0]
+    return matpow(FIBO_MAT, n-1)[0][0]

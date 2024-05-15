@@ -23,19 +23,24 @@ def primes(n):
 
 
 problem = oj.Problem('fibo')
-zip_file = Path(__file__).parent / 'fibo.zip'
+dir_path = Path(__file__).parent
+
+dir_name = problem.title
+zip_name = problem.title+'.zip'
 
 for id, prime in enumerate(primes(200), start=1):
-    tc = oj.TestCase(
-        id=str(id),
-        input=str(prime),
-        output=str(fib(prime))
-    )
+    x = prime
+    y = fib(x)
 
-    if int(tc.output) > oj.LONG_LONG_SIZE:
+    if y > oj.LONG_LONG_SIZE:
         break
+
+    tc = oj.TestCase()
+    tc.input.from_args(prime)
+    tc.output.from_args(fib(prime))
 
     problem.add_testcase(tc)
 
 print(f'{len(problem.testcases)} testcases generated.')
-problem.extract_as_zip(zip_file)
+problem.extract_as_dir(dir_path / dir_name)
+problem.extract_as_zip(dir_path / zip_name)
