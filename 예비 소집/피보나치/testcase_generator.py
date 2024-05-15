@@ -7,6 +7,7 @@ __about__ = """
 
 
 from fast_fibo import fib
+from pathlib import Path
 import oj
 
 
@@ -22,6 +23,7 @@ def primes(n):
 
 
 problem = oj.Problem('fibo')
+zip_file = Path(__file__).parent / 'fibo.zip'
 
 for id, prime in enumerate(primes(200), start=1):
     tc = oj.TestCase(
@@ -36,4 +38,4 @@ for id, prime in enumerate(primes(200), start=1):
     problem.add_testcase(tc)
 
 print(f'{len(problem.testcases)} testcases generated.')
-problem.extract_as_zip()
+problem.extract_as_zip(zip_file)
