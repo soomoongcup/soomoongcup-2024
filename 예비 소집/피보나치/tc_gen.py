@@ -28,20 +28,20 @@ dir_path = Path(__file__).parent
 dir_name = problem.title
 zip_name = problem.title+'.zip'
 
-for id, prime in enumerate(primes(1000), start=1):
-    x = prime
+n = 25 # number of maximum testcases
+
+prime_generator = primes(1000)
+for i in range(n):
+    x = next(prime_generator)
     y = fib(x)
 
     if y > oj.SIZE_T_INT64:
         # long long 을 사용해서 풀 수 있는 범위에서만 출제
         break
 
-    tc = oj.TestCase()
-    tc.input.from_args(x)
-    tc.output.from_args(y)
+    problem.testcases[str(i+1)].input.write(f'{x}')
+    problem.testcases[str(i+1)].output.write(f'{y}')
 
-    problem.add_testcase(tc)
-
-print(f'{len(problem.testcases)} testcases generated.')
+print(f'{i} testcases generated.')
 problem.extract_as_dir(dir_path / dir_name)
 problem.extract_as_zip(dir_path / zip_name)
