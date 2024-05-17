@@ -139,6 +139,7 @@ if __name__ == '__main__':
 
     validate_default_limitations(T, N, K, OUTPUT)
 
+    assert big_o_converage_validator.validate(sum(K) * math.log(sum(N), min(K)))
     assert validators.int64_converage_validator.validate_all(N)
     assert validators.int64_converage_validator.validate_all(K)
     all_outputs = []
