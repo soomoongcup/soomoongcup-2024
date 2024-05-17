@@ -58,12 +58,12 @@ if __name__ == '__main__':
 
     validate_default_limitations(T, N, K, OUTPUT)
 
-    assert validators.int32_validator.validate_all(N)
-    assert validators.int32_validator.validate_all(K)
+    assert validators.int32_converage_validator.validate_all(N)
+    assert validators.int32_converage_validator.validate_all(K)
     for i in range(T):
         output = list(map(int, OUTPUT[i].split()))
         assert len(output) == K[i]
-        assert validators.int32_validator.validate_all(output)
+        assert validators.int32_converage_validator.validate_all(output)
 
     create_testcase(p, TESTCASE_ID, T, N, K)
 
@@ -91,12 +91,12 @@ if __name__ == '__main__':
     validate_default_limitations(T, N, K, OUTPUT)
 
     assert validators.RangeValidator(hi=int(5e8)).validate_one(sum(N)), f'{sum(N)} should be less than {int(5e8)}'
-    assert validators.int32_validator.validate_all(N)
-    assert validators.int32_validator.validate_all(K)
+    assert validators.int32_converage_validator.validate_all(N)
+    assert validators.int32_converage_validator.validate_all(K)
     for i in range(T):
         output = list(map(int, OUTPUT[i].split()))
         assert len(output) == K[i]
-        assert validators.int32_validator.validate_all(output)
+        assert validators.int32_converage_validator.validate_all(output)
 
     create_testcase(p, TESTCASE_ID, T, N, K)
 
@@ -123,13 +123,13 @@ if __name__ == '__main__':
 
     validate_default_limitations(T, N, K, OUTPUT)
 
-    assert validators.int64_validator.validate_all(N)
-    assert validators.int64_validator.validate_all(K)
+    assert validators.int64_converage_validator.validate_all(N)
+    assert validators.int64_converage_validator.validate_all(K)
     all_outputs = []
     for i in range(T):
         output = list(map(int, OUTPUT[i].split()))
         assert len(output) == K[i]
-        assert validators.int64_validator.validate_all(output)
+        assert validators.int64_converage_validator.validate_all(output)
         all_outputs.extend(output)
     assert validators.RangeValidator(lo=constants.UINT32_MAX_VALUE).validate_any(all_outputs), f"{max(all_outputs)} is less than {constants.UINT32_MAX_VALUE}"
 

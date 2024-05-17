@@ -8,7 +8,9 @@ __about__ = """
 
 from fast_fibo import fib
 from pathlib import Path
-import oj
+
+from oj import Problem
+from oj import validators
 
 
 def primes(n):
@@ -22,7 +24,7 @@ def primes(n):
             yield p
 
 
-problem = oj.Problem('fibo')
+problem = Problem('fibo')
 dir_path = Path(__file__).parent
 
 dir_name = problem.title
@@ -35,7 +37,7 @@ for i in range(n):
     x = next(prime_generator)
     y = fib(x)
 
-    if y > oj.SIZE_T_INT64:
+    if validators.int64_converage_validator.validate(x, y):
         # long long 을 사용해서 풀 수 있는 범위에서만 출제
         break
 
