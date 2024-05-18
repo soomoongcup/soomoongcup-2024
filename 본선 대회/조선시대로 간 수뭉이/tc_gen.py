@@ -4,7 +4,8 @@ from pathlib import Path
 import random
 
 from oj import Problem
-from oj import validators
+from oj.validators import RangeValidator
+from oj.validators import TimeComplexityValidator
 
 
 PROBLEM_TITLE = 'chosun-book'
@@ -22,13 +23,13 @@ CHAR_POOL = ALPHABET_UPPER + ALPHABET_LOWER + NUMERIC
 random.seed(1)
 
 p = Problem(PROBLEM_TITLE)
-n_validator = validators.RangeValidator(lo=1, hi=100)
-big_o_converage_validator = validators.RangeValidator(hi=int(5e7))
+n_validator = RangeValidator(lo=1, hi=100)
 
 
 N = [1, 4, 10, 15, 16, 50, 81, 100]
 
-assert big_o_converage_validator.validate_one(max(N) ** 2)
+TimeComplexityValidator(seconds=1, raise_exception=True).validate(max(N) ** 2)
+
 assert n_validator.validate_all(N)
 
 for i in range(len(N)):

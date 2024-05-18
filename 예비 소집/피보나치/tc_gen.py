@@ -10,7 +10,7 @@ from fast_fibo import fib
 from pathlib import Path
 
 from oj import Problem
-from oj import validators
+from oj.validators import IntCoverageValidator
 
 
 def primes(n):
@@ -37,7 +37,7 @@ for i in range(n):
     x = next(prime_generator)
     y = fib(x)
 
-    if validators.int64_converage_validator.validate(x, y):
+    if IntCoverageValidator(allow_int64=True).validate(x, y):
         # long long 을 사용해서 풀 수 있는 범위에서만 출제
         break
 

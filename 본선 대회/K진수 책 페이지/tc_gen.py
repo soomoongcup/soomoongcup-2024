@@ -3,8 +3,9 @@ from typing import List
 import math
 
 from oj import Problem
-from oj import validators
-from oj import constants
+from oj.validators import RangeValidator
+from oj.validators import IntCoverageValidator
+from oj.validators import TimeComplexityValidator
 
 from solution import solve
 
@@ -18,16 +19,16 @@ DIR_NAME = PROBLEM_TITLE
 ZIP_NAME = PROBLEM_TITLE+'.zip'
 
 
-n_validator = validators.RangeValidator(lo=1, hi=int(1e9))
-k_validator = validators.RangeValidator(lo=2, hi=16)
-
-big_o_converage_validator = validators.RangeValidator(hi=int(5e7))
+n_validator = RangeValidator(lo=1, hi=int(1e9))
+k_validator = RangeValidator(lo=2, hi=16)
 
 
 def validate_default_limitations(T: int, N: List[int], K: List[int], OUTPUT: List[str]) -> bool:
     assert len(N) == T
     assert len(K) == T
     assert len(OUTPUT) == T
+    for i in range(T):
+        assert len(OUTPUT[i].split()) == K[i]
     assert n_validator.validate_all(N)
     assert k_validator.validate_all(K)
     return True
@@ -67,13 +68,12 @@ if __name__ == '__main__':
 
     validate_default_limitations(T, N, K, OUTPUT)
 
-    assert big_o_converage_validator.validate(sum(N) * math.log10(sum(N)))
-    assert validators.int32_converage_validator.validate_all(N)
-    assert validators.int32_converage_validator.validate_all(K)
+    TimeComplexityValidator(seconds=1, raise_exception=True).validate(sum(N) * math.log10(sum(N)))
+    IntCoverageValidator(allow_int32=True, raise_exception=True).validate_all(N)
+    IntCoverageValidator(allow_int32=True, raise_exception=True).validate_all(K)
     for i in range(T):
         output = list(map(int, OUTPUT[i].split()))
-        assert len(output) == K[i]
-        assert validators.int32_converage_validator.validate_all(output)
+        IntCoverageValidator(allow_int32=True, raise_exception=True).validate_all(output)
 
     create_testcase(p, testcase_id, T, N, K)
 
@@ -103,13 +103,12 @@ if __name__ == '__main__':
 
     validate_default_limitations(T, N, K, OUTPUT)
 
-    assert big_o_converage_validator.validate(sum(N) * math.log(sum(N), min(K)))
-    assert validators.int32_converage_validator.validate_all(N)
-    assert validators.int32_converage_validator.validate_all(K)
+    TimeComplexityValidator(seconds=1, raise_exception=True).validate(sum(N) * math.log(sum(N), min(K)))
+    IntCoverageValidator(allow_int32=True, raise_exception=True).validate_all(N)
+    IntCoverageValidator(allow_int32=True, raise_exception=True).validate_all(K)
     for i in range(T):
         output = list(map(int, OUTPUT[i].split()))
-        assert len(output) == K[i]
-        assert validators.int32_converage_validator.validate_all(output)
+        IntCoverageValidator(allow_int32=True, raise_exception=True).validate_all(output)
 
     create_testcase(p, testcase_id, T, N, K)
 
@@ -139,16 +138,16 @@ if __name__ == '__main__':
 
     validate_default_limitations(T, N, K, OUTPUT)
 
-    assert big_o_converage_validator.validate(sum(K) * math.log(sum(N), min(K)))
-    assert validators.int64_converage_validator.validate_all(N)
-    assert validators.int64_converage_validator.validate_all(K)
+    TimeComplexityValidator(seconds=1, raise_exception=True).validate(sum(K) * math.log(sum(N), min(K)))
+    IntCoverageValidator(allow_int64=True, raise_exception=True).validate_all(N)
+    IntCoverageValidator(allow_int64=True, raise_exception=True).validate_all(K)
     all_outputs = []
     for i in range(T):
         output = list(map(int, OUTPUT[i].split()))
-        assert len(output) == K[i]
-        assert validators.int64_converage_validator.validate_all(output)
+        IntCoverageValidator(allow_int64=True, raise_exception=True).validate_all(output)
         all_outputs.extend(output)
-    assert validators.RangeValidator(lo=constants.UINT32_MAX_VALUE).validate_any(all_outputs), f"{max(all_outputs)} is less than {constants.UINT32_MAX_VALUE}"
+    # int32를 벗어난 범위의 int64는 적어도 하나 이상 있어야 함.
+    IntCoverageValidator(allow_int64=True, allow_int32=False, raise_exception=True).validate_any(all_outputs)
 
     create_testcase(p, testcase_id, T, N, K)
 
