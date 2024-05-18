@@ -1,5 +1,6 @@
 from pathlib import Path
 from typing import List
+
 import math
 
 from oj import Problem
@@ -13,24 +14,21 @@ from solution import solve
 DIR_PATH = Path(__file__).parent
 
 
-PROBLEM_TITLE = 'k'
+PROBLEM_TITLE = 'kbook'
 
 DIR_NAME = PROBLEM_TITLE
 ZIP_NAME = PROBLEM_TITLE+'.zip'
 
 
-n_validator = RangeValidator(lo=1, hi=int(1e9))
-k_validator = RangeValidator(lo=2, hi=16)
-
-
 def validate_default_limitations(T: int, N: List[int], K: List[int], OUTPUT: List[str]) -> bool:
+    # 문제에서 명시하는 기본 제약 조건들을 만족하는지 검사.
     assert len(N) == T
     assert len(K) == T
     assert len(OUTPUT) == T
     for i in range(T):
         assert len(OUTPUT[i].split()) == K[i]
-    assert n_validator.validate_all(N)
-    assert k_validator.validate_all(K)
+    RangeValidator(lo=1, hi=1e9, raise_exception=True).validate_all(N)
+    RangeValidator(lo=2, hi=16, raise_exception=True).validate_all(K)
     return True
 
 
@@ -154,4 +152,4 @@ if __name__ == '__main__':
 
     print(f'{len(p.testcases)} testcases generated.')
     p.extract_as_dir(DIR_PATH / DIR_NAME)
-    # p.extract_as_zip(DIR_PATH / ZIP_NAME)
+    p.extract_as_zip(DIR_PATH / ZIP_NAME)
