@@ -13,7 +13,7 @@ from solution import solve
 DIR_PATH = Path(__file__).parent
 
 
-PROBLEM_TITLE = 'k-base-book-pages'
+PROBLEM_TITLE = 'k'
 
 DIR_NAME = PROBLEM_TITLE
 ZIP_NAME = PROBLEM_TITLE+'.zip'
