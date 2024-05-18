@@ -39,3 +39,4 @@ p = Problem(PROBLEM_TITLE)
 p.testcases['1'].output.write('\n'.join(lines))
 
 p.extract_as_dir(DIR_PATH / DIR_NAME)
+p.extract_as_zip(DIR_PATH / ZIP_NAME)
