@@ -1,3 +1,5 @@
+// 시간복잡도 O(n^2) + O(m)
+
 #include <cstdio>
 #include <stdio.h>
 #include <iostream>
