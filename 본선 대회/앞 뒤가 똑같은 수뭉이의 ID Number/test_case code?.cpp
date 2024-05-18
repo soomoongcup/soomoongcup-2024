@@ -1,5 +1,5 @@
 // 시간복잡도 O(n^2) + O(m)
-
+// 슬라이싱으로 풀면 시간초과
 #include <cstdio>
 #include <stdio.h>
 #include <iostream>
