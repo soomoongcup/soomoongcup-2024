@@ -102,10 +102,19 @@ if __name__ == '__main__':
             pre-order dfs 방식의 완전 탐색
             서브넷의 루트일 경우 smart degeneration case로 최적화 가능
             즉, output 주소의 개수 만큼 노드를 방문한다고 생각.
+            그런데 어차피 output 주소의 개수 상한은 N임.
+        -> O(N log N) ... 은 아니고 그냥 O(N)
+
+        수행 시간은 대충 이런 느낌 아닐까...
+        T(N) = 32x2xN + 32xN = ... 대략 100 N
         """
 
         IPV4_BIT_LEN = 32
-        TimeComplexityValidator(seconds=1, raise_exception=True).validate(IPV4_BIT_LEN * (sum(N) + len(OUTPUT)))
+        TimeComplexityValidator(seconds=1, raise_exception=True).validate(100*sum(N))
+
+        # TC#2는 O(N^2) 에는 안 풀렸으면 좋겠다.
+        if TESTCASE_ID == '2':
+            assert TimeComplexityValidator(seconds=1, raise_exception=False).validate(sum(N)**2) == False
 
     print(f'{len(p.testcases)} testcases generated.')
     p.extract_as_dir(DIR_PATH / DIR_NAME)
