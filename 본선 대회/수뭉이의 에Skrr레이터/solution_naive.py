@@ -8,20 +8,21 @@ def solve(N: int, M: int, A: List[int]) -> int:
     에스컬레이터가 버텼던 최대 중량을 계산한다.
     """
     max_load = 0
-    current_load = 0
 
     i = 0 # queue front index (새로운 노드가 추가 될 위치)
     j = 0 # queue rear index (다음번에 제거 될 노드의 위치)
 
     while i < N:
         # 사람이 탑승한다.
-        current_load += A[i]
         i += 1
 
         if (i-j) > M:
             # 사람이 내린다.
-            current_load -= A[j]
             j += 1
+
+        current_load = 0
+        for k in range(j, i):
+            current_load += A[k]
 
         # 최대 하중을 갱신한다.
         if max_load < current_load:

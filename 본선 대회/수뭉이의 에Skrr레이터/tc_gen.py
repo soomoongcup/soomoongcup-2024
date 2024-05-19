@@ -77,3 +77,18 @@ if __name__ == '__main__':
     print(f'{len(p.testcases)} testcases generated.')
     p.extract_as_dir(DIR_PATH / DIR_NAME)
     p.extract_as_zip(DIR_PATH / ZIP_NAME)
+
+
+    PROBLEM_SAMPLE_TITLE = 'eskr-sample'
+
+    p_sample = Problem(PROBLEM_SAMPLE_TITLE)
+
+    TESTCASE_ID = '1'
+    N, M = 6, 4
+    A = [58, 113, 77, 66, 180, 45]
+    OUTPUT = solve(N, M, A)
+    p_sample.testcases[TESTCASE_ID].input.write(f'{N} {M}\n')
+    p_sample.testcases[TESTCASE_ID].input.write('\n'.join(map(str, A)))
+    p_sample.testcases[TESTCASE_ID].output.write(str(OUTPUT))
+
+    p_sample.extract_as_dir(DIR_PATH / PROBLEM_SAMPLE_TITLE)
