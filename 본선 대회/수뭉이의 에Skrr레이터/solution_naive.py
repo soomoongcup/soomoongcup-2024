@@ -33,8 +33,7 @@ def solve(N: int, M: int, A: List[int]) -> int:
 
 if __name__ == '__main__':
     import sys
-    N = int(sys.stdin.readline())
-    M = int(sys.stdin.readline())
+    N, M = map(int, sys.stdin.readline().split())
     A = []
     for i in range(N):
         A.append(int(sys.stdin.readline()))

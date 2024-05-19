@@ -29,8 +29,7 @@ def create_testcase(p: Problem, TESTCASE_ID: str, N: int, M: int, A: List[int], 
     RangeValidator(lo=1, hi=1e6).validate(M)
     RangeValidator(lo=1, hi=200).validate_all(A)
     # 테스트케이스를 문제에 추가
-    p.testcases[TESTCASE_ID].input.write(f'{N}\n')
-    p.testcases[TESTCASE_ID].input.write(f'{M}\n')
+    p.testcases[TESTCASE_ID].input.write(f'{N} {M}\n')
     for i in range(N):
         p.testcases[TESTCASE_ID].input.write(f'{A[i]}\n')
     p.testcases[TESTCASE_ID].output.write(f'{OUTPUT}\n')
@@ -47,7 +46,7 @@ if __name__ == '__main__':
     TESTCASE_ID = '1'
     N = 100
     M = 80
-    A = [random.randint(20, 100) for i in range(N)]
+    A = [random.randint(20, 200) for i in range(N)]
     OUTPUT = solve(N, M, A)
 
     TimeComplexityValidator(seconds=0.5, raise_exception=True).validate(N*M)
@@ -63,8 +62,8 @@ if __name__ == '__main__':
     """
     TESTCASE_ID = '2'
     N = 100000
-    M = 10000
-    A = [random.randint(1, 500) for i in range(N)]
+    M = 30000
+    A = [random.randint(1, 1000) for i in range(N)]
     OUTPUT = solve(N, M, A)
 
     assert TimeComplexityValidator(seconds=0.5, raise_exception=False).validate(N*M) == False
@@ -87,8 +86,6 @@ if __name__ == '__main__':
     N, M = 6, 4
     A = [58, 113, 77, 66, 180, 45]
     OUTPUT = solve(N, M, A)
-    p_sample.testcases[TESTCASE_ID].input.write(f'{N} {M}\n')
-    p_sample.testcases[TESTCASE_ID].input.write('\n'.join(map(str, A)))
-    p_sample.testcases[TESTCASE_ID].output.write(str(OUTPUT))
+    create_testcase(p_sample, TESTCASE_ID, N, M, A, OUTPUT)
 
     p_sample.extract_as_dir(DIR_PATH / PROBLEM_SAMPLE_TITLE)
